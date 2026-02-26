@@ -1,0 +1,37 @@
+<div class="mini-sidebar-container">
+  
+  <aside class="mini-sidebar">
+    
+    <!-- Logo -->
+    <div class="mini-sidebar-logo">
+      <iconify-icon icon="tabler:building-estate" width="26"></iconify-icon>
+    </div>
+
+    <!-- Menü elemek -->
+    <a routerLink="/auth/login" 
+       routerLinkActive="active-mini-link"
+       class="mini-sidebar-item">
+      <iconify-icon icon="tabler:login" width="22"></iconify-icon>
+      <span>Belépés</span>
+    </a>
+
+    <a routerLink="/auth/register" 
+       routerLinkActive="active-mini-link"
+       class="mini-sidebar-item">
+      <iconify-icon icon="tabler:user-plus" width="22"></iconify-icon>
+      <span>Regisztráció</span>
+    </a>
+
+    <a routerLink="/public-dashboard"
+       routerLinkActive="active-mini-link"
+       class="mini-sidebar-item">
+      <iconify-icon icon="tabler:home" width="22"></iconify-icon>
+      <span>Kezdőlap</span>
+    </a>
+  </aside>
+
+  <main class="mini-sidebar-content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

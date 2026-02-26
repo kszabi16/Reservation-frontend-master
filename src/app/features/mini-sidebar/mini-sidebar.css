@@ -1,0 +1,86 @@
+
+.mini-sidebar-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: #f3f4f6; 
+}
+
+
+.mini-sidebar {
+  width: 90px;
+  background: linear-gradient(
+    180deg,
+    #2b2140 0%,      
+    #1f2937 40%,     
+    #1a1f2b 100%     
+  ); 
+  color: #e5e7eb;
+  padding: 28px 0;
+  border-right: 1px solid #374151;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow:
+    inset 0 0 25px rgba(124,58,237,0.15),
+    0 0 35px rgba(124,58,237,0.15);
+  backdrop-filter: blur(8px);
+  gap: 26px;
+}
+
+
+.mini-sidebar-logo {
+  color: #a78bfa;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  transition: 0.25s ease;
+}
+
+.mini-sidebar-logo:hover {
+  transform: scale(1.1);
+}
+
+
+.mini-sidebar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #d1d5db;
+  font-size: 11px;
+  padding: 10px 6px;
+  border-radius: 6px;
+  transition: 0.25s ease;
+}
+
+.mini-sidebar-item:hover {
+  background: #374151;
+  color: white;
+}
+
+.mini-sidebar-item iconify-icon {
+  opacity: 0.9;
+  transition: 0.25s ease;
+}
+
+.mini-sidebar-item:hover iconify-icon {
+  color: #a78bfa;
+  opacity: 1;
+}
+
+
+.active-mini-link {
+   background: rgba(124,58,237,0.25) !important;
+  color: #fff !important;
+  border-radius: 6px;
+}
+
+
+.mini-sidebar-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f9fafb;
+}

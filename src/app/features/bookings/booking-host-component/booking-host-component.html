@@ -1,0 +1,61 @@
+<div class="admin-container">
+  <div class="admin-card">
+
+    <h1 class="admin-title">Foglalások kezelése</h1>
+    <p class="admin-subtitle">A hozzád tartozó ingatlanok foglalásai</p>
+
+    <div class="admin-grid">
+
+      <div *ngFor="let b of bookings" class="admin-button-card">
+
+        <h3>Foglalás #{{ b.id }}</h3>
+
+        <p>Ingatlan ID: {{ b.propertyId }}</p>
+        <p>Vendég ID: {{ b.guestId }}</p>
+
+        <p>
+          Dátum:
+          {{ b.startDate | date:'yyyy.MM.dd' }}
+          –
+          {{ b.endDate | date:'yyyy.MM.dd' }}
+        </p>
+
+        <p>
+          Státusz:
+          <strong
+            [ngStyle]="{
+              color:
+                b.status === BookingStatus.Confirmed
+                  ? 'lightgreen'
+                  : b.status === BookingStatus.Pending
+                  ? 'orange'
+                  : 'red'
+            }"
+          >
+            {{ b.status }}
+          </strong>
+        </p>
+
+        <div style="margin-top: 15px; display: flex; gap: 10px;">
+
+          <button
+            class="btn-details"
+            *ngIf="b.status === BookingStatus.Pending"
+            (click)="confirm(b.id)">
+            Jóváhagyás
+          </button>
+
+          <button
+            class="btn-details"
+            *ngIf="b.status !== BookingStatus.Cancelled"
+            (click)="cancel(b.id)">
+            Lemondás
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,135 @@
+<!-- MINI SIDEBAR FOR LOGIN/REGISTER -->
+
+<!-- FULL LAYOUT FOR DASHBOARD/APP -->
+<div class="layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+
+    <div class="sidebar-header">
+      <span class="logo-text">Reservation</span>
+    </div>
+
+    <ul class="sidebar-menu">
+
+      <!-- ANONYMUS -->
+      @if (!isLoggedIn) {
+        <li>
+          <a routerLink="/public-dashboard">
+            <iconify-icon icon="tabler:home" width="20"></iconify-icon>
+            Kezdőlap
+          </a>
+        </li>
+        <li>
+          <a (click)="goToLogin()">
+            <iconify-icon icon="tabler:plus" width="20"></iconify-icon>
+            Ingatlan feladása
+          </a>
+        </li>
+        <li>
+          <a routerLink="/auth/login">
+            <iconify-icon icon="tabler:login" width="20"></iconify-icon>
+            Bejelentkezés
+          </a>
+        </li>
+        <li>
+          <a routerLink="/auth/register">
+            <iconify-icon icon="tabler:user-plus" width="20"></iconify-icon>
+            Regisztráció
+          </a>
+        </li>
+      }
+
+      <!-- USER -->
+      @if (hasRole('User')) {
+        <li>
+          <a routerLink="/profile">
+            <iconify-icon icon="tabler:user" width="20"></iconify-icon>
+            Profilom
+          </a>
+        </li>
+        <li>
+          <a routerLink="/user-dashboard">
+            <iconify-icon icon="tabler:dashboard" width="20"></iconify-icon>
+            Kezdőlap
+          </a>
+        </li>
+        <li>
+          <a routerLink="/property/create">
+            <iconify-icon icon="tabler:plus" width="20"></iconify-icon>
+            Ingatlan feladása
+          </a>
+        </li>
+        <li>
+          <a (click)="logout()">
+            <iconify-icon icon="tabler:logout" width="20"></iconify-icon>
+            Kijelentkezés
+          </a>
+        </li>
+      }
+
+      <!-- HOST -->
+      @if (hasRole('Host')) {
+        <li>
+          <a routerLink="/profile">
+            <iconify-icon icon="tabler:user" width="20"></iconify-icon>
+            Profilom
+          </a>
+        </li>
+        <li>
+          <a routerLink="/host-dashboard">
+            <iconify-icon icon="tabler:dashboard" width="20"></iconify-icon>
+            Kezdőlap
+          </a>
+        </li>
+        <li>
+          <a routerLink="/property/create">
+            <iconify-icon icon="tabler:plus" width="20"></iconify-icon>
+            Ingatlan feladása
+          </a>
+        </li>
+        <li>
+          <a routerLink="/properties">
+            <iconify-icon icon="tabler:building" width="20"></iconify-icon>
+            Ingatlanjaim
+          </a>
+        </li>
+        <li>
+          <a (click)="logout()">
+            <iconify-icon icon="tabler:logout" width="20"></iconify-icon>
+            Kijelentkezés
+          </a>
+        </li>
+      }
+
+      <!-- ADMIN -->
+      @if (hasRole('Admin')) {
+        <li>
+          <a routerLink="/profile">
+            <iconify-icon icon="tabler:user" width="20"></iconify-icon>
+            Profil
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin-dashboard">
+            <iconify-icon icon="tabler:settings" width="20"></iconify-icon>
+            Kezdőlap
+          </a>
+        </li>
+        <li>
+          <a (click)="logout()">
+            <iconify-icon icon="tabler:logout" width="20"></iconify-icon>
+            Kijelentkezés
+          </a>
+        </li>
+      }
+
+    </ul>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

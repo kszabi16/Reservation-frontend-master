@@ -1,0 +1,59 @@
+<div class="property-container">
+  <div class="page-header">
+    <h2 class="page-title">
+      <iconify-icon icon="tabler:home-plus"></iconify-icon> Új ingatlan
+    </h2>
+    <p style="color: var(--text-gray);">Hirdess meg egy új szálláshelyet egyszerűen.</p>
+  </div>
+
+  <div class="card">
+    <form (ngSubmit)="createProperty()" #form="ngForm" class="form-grid">
+
+      <div class="form-group">
+        <label class="form-label">Cím</label>
+        <input type="text" [(ngModel)]="property.title" name="title" required placeholder="Add meg az ingatlan nevét" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Leírás</label>
+        <textarea [(ngModel)]="property.description" name="description" required rows="4" placeholder="Írd le, miért különleges ez a hely..." class="form-input"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Helyszín</label>
+        <div style="position: relative; display: flex; align-items: center;">
+            <iconify-icon icon="tabler:map-pin" style="position: absolute; left: 12px; color: #94a3b8;"></iconify-icon>
+            <input type="text" [(ngModel)]="property.location" name="location" required 
+                   style="padding-left: 36px;" class="form-input" placeholder="Pl. Budapest" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Ár / éj (HUF)</label>
+          <input type="number" [(ngModel)]="property.pricePerNight" name="pricePerNight" required class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Férőhely</label>
+          <input type="number" [(ngModel)]="property.capacity" name="capacity" required class="form-input" />
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="form.invalid || loading" class="btn btn-primary" style="margin-top: 1rem;">
+        <iconify-icon icon="tabler:plus"></iconify-icon>
+        {{ loading ? 'Létrehozás...' : 'Ingatlan létrehozása' }}
+      </button>
+
+    </form>
+  </div>
+
+  @if (message) {
+    <div style="text-align: center; color: var(--success-color); font-weight: bold; margin-top: 1rem;">
+      <iconify-icon icon="tabler:check"></iconify-icon> {{ message }}
+    </div>
+  }
+  @if (error) {
+    <div class="state-message error">{{ error }}</div>
+  }
+</div>

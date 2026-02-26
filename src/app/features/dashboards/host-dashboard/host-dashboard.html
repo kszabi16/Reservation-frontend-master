@@ -1,0 +1,68 @@
+
+
+<div class="user-container">
+
+
+  <main class="flex-1 p-6 bg-base-100 min-h-screen">
+    <router-outlet></router-outlet>
+  
+    <div class="px-2 mb-4 sm:hidden">
+      <button
+        type="button"
+        class="btn btn-text btn-square"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="collapsible-sidebar"
+        data-overlay="#collapsible-sidebar">
+        <iconify-icon icon="tabler:menu-2" width="24" height="24"></iconify-icon>
+      </button>
+    </div><div class="admin-container">
+  <div class="admin-card">
+    <h1 class="admin-title">Host Kezelőfelület</h1>
+    <p class="admin-subtitle">Válaszd ki, melyik műveletet szeretnéd elvégezni.</p>
+
+    <div class="admin-grid">
+
+ 
+      <a routerLink="/properties" class="admin-button-card">
+        <h3>Ingatlanjaim</h3>
+        <p>A feltöltött ingatlanok listázása és kezelése.</p>
+      </a>
+
+   
+      <a routerLink="/property/create" class="admin-button-card">
+        <h3>Új ingatlan feladása</h3>
+        <p>Adj hozzá új ingatlant a rendszerhez részletes adatokkal.</p>
+      </a>
+
+      <a routerLink="/host-all-properties" class="admin-button-card">
+        <h3>Ingatlanok</h3>
+        <p>Az oldalon lévő ingatlanok.</p>
+      </a>
+
+    
+      <a routerLink="/host/reservations" class="admin-button-card">
+        <h3>Foglalásaim</h3>
+        <p>Aktív, elfogadott és folyamatban lévő foglalások kezelése.</p>
+      </a>
+
+ 
+      <a routerLink="/notifications" class="admin-button-card">
+        <h3>Értesítések</h3>
+        <p>Foglalásokkal és módosításokkal kapcsolatos értesítések.</p>
+      </a>
+
+
+      <a routerLink="/messages" class="admin-button-card">
+        <h3>Üzenetek</h3>
+        <p>Kommunikáció a felhasználókkal és érdeklődőkkel.</p>
+      </a>
+
+    </div>
+  </div>
+</div>
+  </main>
+</div>
+
+
+    
