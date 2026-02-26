@@ -9,6 +9,8 @@ import { PropertyDto } from '../../../core/models/property-dto';
 import { CommentDto, CreateCommentDto } from '../../../core/models/comment-dto';
 import { LikeService } from '../../../core/services/like.service';
 import { LikeTargetType } from '../../../core/models/like-dto';
+import { BookingService } from '../../../core/services/booking.service';
+import { CreateBookingDto } from '../../../core/models/booking-dto';
 
 @Component({
   selector: 'app-property-public-detail',
@@ -21,12 +23,21 @@ export class PropertyPublicDetailComponent implements OnInit {
   property: PropertyDto | null = null;
   loading = true;
   error = '';
+  //kommentek 
   comments: CommentDto[] = [];
   newCommentText: string = ''; 
   submittingComment = false;
   likedCommentIds: Set<number> = new Set<number>();
   newCommentRating: number = 0; 
   stars: number[] = [1, 2, 3, 4, 5];
+
+  //foglalas
+  startDate: string = '';
+  endDate: string = '';
+  bookingLoading = false;
+  bookingSuccess = false;
+  bookingError = '';
+  today: string = new Date().toISOString().split('T')[0]; // Mai dátum a naptár tiltásához (min)
 
 
   constructor(
@@ -35,7 +46,8 @@ export class PropertyPublicDetailComponent implements OnInit {
     private commentService: CommentService,
     public authService: AuthService,
     private location: Location,
-    private likeService: LikeService 
+    private likeService: LikeService,
+    private bookingService: BookingService
   ) {}
 
   ngOnInit(): void {
@@ -161,5 +173,67 @@ export class PropertyPublicDetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back(); 
+  }
+
+  get totalDays(): number {
+    if (!this.startDate || !this.endDate) return 0;
+    const start = new Date(this.startDate);
+    const end = new Date(this.endDate);
+    if (end <= start) return 0;
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  }
+
+  // Kiszámolja az árat a napok alapján
+  get calculatedPrice(): number {
+    if (!this.property) return 0;
+    return this.totalDays * this.property.pricePerNight;
+  }
+
+  // Foglalás elküldése
+  bookProperty(): void {
+    this.bookingError = '';
+    this.bookingSuccess = false;
+
+    if (!this.authService.isLoggedIn()) {
+      this.bookingError = 'A foglaláshoz be kell jelentkezned!';
+      return;
+    }
+
+    if (!this.property || !this.startDate || !this.endDate) {
+      this.bookingError = 'Kérlek válassz érkezési és távozási dátumot!';
+      return;
+    }
+
+    if (new Date(this.startDate) >= new Date(this.endDate)) {
+      this.bookingError = 'A távozás dátuma nem lehet korábban, mint az érkezésé!';
+      return;
+    }
+
+    this.bookingLoading = true;
+    const guestId = this.authService.getUserIdFromToken() || 0;
+
+    const dto: CreateBookingDto = {
+      propertyId: this.property.id,
+      guestId: guestId,
+      startDate: new Date(this.startDate).toISOString(),
+      endDate: new Date(this.endDate).toISOString()
+    };
+
+    this.bookingService.createBooking(dto).subscribe({
+      next: () => {
+        this.bookingLoading = false;
+        this.bookingSuccess = true;
+        this.startDate = '';
+        this.endDate = '';
+        
+        setTimeout(() => this.bookingSuccess = false, 5000);
+      },
+      error: (err) => {
+        console.error('Foglalási hiba:', err);
+        this.bookingError = 'Sikertelen foglalás. Lehet, hogy az időpont már foglalt, vagy szerverhiba történt.';
+        this.bookingLoading = false;
+      }
+    });
   }
 }

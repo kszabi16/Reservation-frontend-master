@@ -20,7 +20,7 @@ export class UserDashboardComponent implements OnInit {
   error = '';
   
 
-  // 🔍 Szűrési mezők
+ 
   searchLocation = '';
   minPrice: number | null = null;
   maxPrice: number | null = null;
@@ -37,7 +37,7 @@ export class UserDashboardComponent implements OnInit {
     
   }
 
-  /** Összes ingatlan betöltése */
+
   loadAll(): void {
     this.loading = true;
     this.propertyService.getAllProperties().subscribe({
@@ -56,7 +56,7 @@ export class UserDashboardComponent implements OnInit {
   applyFilters(): void {
   this.loading = true;
   
-  // Egyetlen hívás, átadva az összes létező paramétert
+
   this.propertyService.searchProperties(
     this.searchLocation.trim() || undefined,
     this.minPrice || undefined,
@@ -74,7 +74,6 @@ export class UserDashboardComponent implements OnInit {
     }
   });
 }
-  /** ♻️ Szűrők törlése és újratöltés */
   resetFilters(): void {
     this.searchLocation = '';
     this.minPrice = null;
@@ -83,6 +82,4 @@ export class UserDashboardComponent implements OnInit {
     this.loadAll();
   }
 
-
-  
 }

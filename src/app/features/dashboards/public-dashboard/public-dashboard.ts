@@ -18,9 +18,7 @@ export class PublicDashboardComponent implements OnInit {
   properties: PropertyDto[] = [];
   loading = true;
   error = '';
-  
 
-  // 🔍 Szűrési mezők
   searchLocation = '';
   minPrice: number | null = null;
   maxPrice: number | null = null;
@@ -37,7 +35,6 @@ export class PublicDashboardComponent implements OnInit {
     
   }
 
-  /** Összes ingatlan betöltése */
   loadAll(): void {
     this.loading = true;
     this.propertyService.getAllProperties().subscribe({
@@ -53,7 +50,6 @@ export class PublicDashboardComponent implements OnInit {
     });
   }
 
-  /** 🔎 Szűrés alkalmazása */
   applyFilters(): void {
     this.loading = true;
 
@@ -99,11 +95,9 @@ export class PublicDashboardComponent implements OnInit {
       return;
     }
 
-    // ha semmi nincs beírva, vissza az alap listára
     this.loadAll();
   }
 
-  /** ♻️ Szűrők törlése és újratöltés */
   resetFilters(): void {
     this.searchLocation = '';
     this.minPrice = null;

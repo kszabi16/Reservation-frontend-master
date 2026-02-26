@@ -16,20 +16,16 @@ export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'public-dashboard' },
 
 
-  {
-  path: 'auth',
-  component: MiniLayoutComponent,   // csak a mini-sidebar + auth oldalak
-  children: [
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent }
-  ]
-},
+
 
   // Layout alatti oldalak
   {
     path: '',
     component: LayoutComponent,
     children: [
+
+      { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
       // PUBLIC + USER dashboard
       {
         path: 'public-dashboard',
@@ -89,14 +85,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/profile/profile.component').then((m) => m.ProfileComponent),
       },
-      {
-        path: 'notifications', 
-        //canActivate: [authGuard('User,Host')],
-        loadComponent: () =>
-          import('./features/notifications/notifications.component').then(
-            (m) => m.NotificationsComponent
-          ),
-      },
+      
       {
         path: 'messages', 
         //canActivate: [authGuard('User,Host')],
@@ -138,7 +127,14 @@ export const routes: Routes = [
             (m) => m.HostAllPropertiesComponent
           ),
       },
-
+      {
+      path: 'host-bookings',
+      //canActivate: [authGuard('Host')],
+      loadComponent: () =>
+        import('./features/bookings/booking-host-component/booking-host-component').then(
+          (m) => m.BookingHostComponent
+        ),
+      },
       // Admin-only
       {
         path: 'host-requests',
@@ -147,6 +143,18 @@ export const routes: Routes = [
           import('./features/host-requests/host-request-admin.component').then(
             (m) => m.HostRequestAdminComponent
           ),
+      },
+      {path: 'admin-users', 
+        loadComponent: () => 
+          import('./features/dashboards/admin-dashboard/admin-users')
+        .then(m => m.UserAdminComponent)},
+      { 
+        path: 'admin-stats',
+         loadComponent() {
+          return import('./features/dashboards/admin-dashboard/admin-stats')
+          .then(m => m.AdminStatsComponent);
+         }
+
       },
       {
         path: 'admin-dashboard',

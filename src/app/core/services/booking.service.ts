@@ -48,6 +48,11 @@ export class BookingService {
   getByDateRange(start: string, end: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/date-range?startDate=${start}&endDate=${end}`);
   }
+  
+  getPendingBookings(): Observable<BookingDto[]> {
+    return this.http.get<BookingDto[]>(`${this.baseUrl}/status/0`); 
+    // Ha a backend végpontja máshogy van, pl. my-properties-bookings/pending, akkor azt írd ide!
+  }
 
   updateStatus(id: number, status: string) {
     return this.http.put(`${this.baseUrl}/${id}/status`, status);
