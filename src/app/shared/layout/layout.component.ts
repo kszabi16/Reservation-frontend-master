@@ -40,6 +40,9 @@ export class LayoutComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn();
     this.userRole = this.authService.role;
     this.username = this.authService.getUsernameFromToken();
+    /*this.isLoggedIn = true;
+    this.userRole = 'Host'; 
+    this.username = 'Teszt Elek';*/
   }
 
   goToLogin(): void {

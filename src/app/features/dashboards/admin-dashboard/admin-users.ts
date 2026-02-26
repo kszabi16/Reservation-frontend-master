@@ -78,8 +78,7 @@ export class UserAdminComponent implements OnInit {
 
   // 3. A megírt addUser metódus
   addUser(): void {
-    // Átirányítjuk az admint a meglévő regisztrációs űrlapra
-    // (Vagy ha később csinálsz egy dedikált '/admin/users/create' oldalt, csak írd át ezt az útvonalat)
-    this.router.navigate(['/auth/register']);
+    
+    this.router.navigate(['/admin-user-create']);
   }
 }

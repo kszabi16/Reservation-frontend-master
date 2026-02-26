@@ -9,13 +9,20 @@ import { MiniLayoutComponent } from './features/mini-sidebar/mini-sidebar';
 import { PropertyCreateComponent } from './features/properties/property-create/property-create.component';
 import { PropertyEditComponent } from './features/properties/property-edit/property-edit.component';
 import { PropertyAdminComponent } from './features/properties/property-admin/property-admin.component';
-
+import { UserAdminComponent } from './features/dashboards/admin-dashboard/admin-users';
 
 export const routes: Routes = [
   // Publikus oldalak
   { path: '', pathMatch: 'full', redirectTo: 'public-dashboard' },
 
-
+{
+  path: 'auth',
+  component: MiniLayoutComponent,
+  children: [
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+  ]
+},
 
 
   // Layout alatti oldalak
@@ -24,8 +31,7 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
 
-      { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+      
       // PUBLIC + USER dashboard
       {
         path: 'public-dashboard',
@@ -102,6 +108,27 @@ export const routes: Routes = [
             (m) => m.CalendarComponent
           ),
       },
+       {
+        path: 'property/create',
+          loadComponent: () => import('./features/properties/property-create/property-create.component').then(
+            (m) => m.PropertyCreateComponent
+          ),
+        //canActivate: [authGuard('User,Host')],
+      },
+      {
+        path: 'property/edit/:id',
+        loadComponent: () => import('./features/properties/property-edit/property-edit.component').then(
+          (m) => m.PropertyEditComponent
+        ),
+        //canActivate: [authGuard('Host')],
+      },
+      {
+        path: 'property/admin',
+        loadComponent: () => import('./features/properties/property-admin/property-admin.component').then(
+          (m) => m.PropertyAdminComponent
+        ),
+        //canActivate: [authGuard('Admin')],
+      },
       {
         path: 'property/:id',
         loadComponent: () =>
@@ -144,6 +171,12 @@ export const routes: Routes = [
             (m) => m.HostRequestAdminComponent
           ),
       },
+      {
+        path: 'admin-user-create',
+        loadComponent: () => 
+          import('./features/dashboards/admin-dashboard/admin-user-create/admin-user-create')
+        .then(m => m.AdminUserCreateComponent)
+      },
       {path: 'admin-users', 
         loadComponent: () => 
           import('./features/dashboards/admin-dashboard/admin-users')
@@ -177,22 +210,8 @@ export const routes: Routes = [
 
       // properties oldal (host/admin)
  
-      // Create/edit/admin – roles
-      {
-        path: 'property/create',
-        component: PropertyCreateComponent,
-        //canActivate: [authGuard('User,Host')],
-      },
-      {
-        path: 'property/edit/:id',
-        component: PropertyEditComponent,
-        //canActivate: [authGuard('Host')],
-      },
-      {
-        path: 'property/admin',
-        component: PropertyAdminComponent,
-        //canActivate: [authGuard('Admin')],
-      },
+      
+      
     ],
   },
 
